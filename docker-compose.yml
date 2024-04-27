@@ -6,6 +6,7 @@ services:
       context: .
       args:
         - REACT_APP_API_ADDRESS=localhost:7153
+        - REACT_APP_AUTH_API_ADDRESS=localhost:7154
     image: netreactfront:1.0
     ports:
       - '3000:3000'

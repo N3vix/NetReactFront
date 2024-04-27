@@ -1,4 +1,4 @@
-FROM node:21
+FROM node:21 as build
 
 WORKDIR /reactchatapp
 
@@ -11,6 +11,11 @@ RUN npm install
 
 ARG REACT_APP_API_ADDRESS
 ENV REACT_APP_API_ADDRESS $REACT_APP_API_ADDRESS
+ARG REACT_APP_AUTH_API_ADDRESS
+ENV REACT_APP_AUTH_API_ADDRESS $REACT_APP_AUTH_API_ADDRESS
+
+FROM node:21-alpine
+COPY --from=build /reactchatapp /
 
 CMD ["npm", "start"]
 

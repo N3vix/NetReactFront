@@ -6,7 +6,7 @@ import user_icon from "./assets/person.png";
 import email_icon from "./assets/email.png";
 import password_icon from "./assets/password.png";
 import "./homepage.css"
-import { BACKEND_BASE_URL, USER_TOKEN_KEY, USER_ID_KEY } from '../constants'
+import { BACKEND_AUTH_URL, USER_TOKEN_KEY, USER_ID_KEY } from '../constants'
 
 const LoginSignup = () => {
 
@@ -95,7 +95,7 @@ const LoginSignup = () => {
     }
 
     async function SignUp() {
-        return fetch(BACKEND_BASE_URL + "/AuthManagement/Register", {
+        return fetch(BACKEND_AUTH_URL + "/Identity/Register", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -105,7 +105,7 @@ const LoginSignup = () => {
     }
 
     async function Login() {
-        return fetch(BACKEND_BASE_URL + "/AuthManagement/Login", {
+        return fetch(BACKEND_AUTH_URL + "/Identity/Login", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

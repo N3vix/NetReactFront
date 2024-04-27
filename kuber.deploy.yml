@@ -14,13 +14,15 @@ spec:
     spec:
       containers:
       - name: react-frontend
-        image: netreactfront:1.0
+        image: netreact-front:1.0
         resources:
           limits:
-            memory: "2000Mi"
+            memory: "500Mi"
             cpu: "500m"
         ports:
         - containerPort: 3000
         env:
         - name: REACT_APP_API_ADDRESS
           value: "localhost:7153"
+        - name: REACT_APP_AUTH_API_ADDRESS
+          value: "localhost:7154"

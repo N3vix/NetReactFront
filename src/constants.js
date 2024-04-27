@@ -1,4 +1,5 @@
-export const BACKEND_BASE_URL = `https://${process.env.REACT_APP_API_ADDRESS}`;
+export const BACKEND_BASE_URL = `http://${process.env.REACT_APP_API_ADDRESS}`;
+export const BACKEND_AUTH_URL = `http://${process.env.REACT_APP_AUTH_API_ADDRESS}`;
 export const USER_TOKEN_KEY = 'accessToken';
 export const USER_ID_KEY = 'userId';
 
