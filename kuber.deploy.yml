@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-frontend
+spec:
+  selector:
+    matchLabels:
+      app: react-frontend
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: react-frontend
+    spec:
+      containers:
+      - name: react-frontend
+        image: netreactfront:1.0
+        resources:
+          limits:
+            memory: "2000Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000
+        env:
+        - name: REACT_APP_API_ADDRESS
+          value: "localhost:7153"
