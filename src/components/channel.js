@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 
-import { BACKEND_BASE_URL, USER_TOKEN, FETCH_GET } from '../constants'
+import { BACKEND_BASE_URL, BACKEND_CHANNELS_URL, USER_TOKEN, FETCH_GET } from '../constants'
 import TextChannel from './textchannel';
 import VoiceChannel from './voicechannel';
 
@@ -12,7 +12,7 @@ const Channel = () => {
     const [isTextChannel, setIsTextChannel] = useState(true)
 
     useEffect(() => {
-        FETCH_GET("/Channels/GetChannel" + "?id=" + channelId)
+        FETCH_GET(BACKEND_CHANNELS_URL, "/Channels/GetChannel" + "?id=" + channelId)
             .then(r => r.json())
             .then(data => setIsTextChannel(data.type === 0))
             .catch(error => console.log(error))

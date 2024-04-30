@@ -3,19 +3,14 @@ import { Link, Outlet } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 
 import './homepage.css'
-import { BACKEND_BASE_URL, USER_TOKEN } from '../constants'
+import { BACKEND_SERVERS_URL, FETCH_GET } from '../constants'
 
 const Homepage = () => {
 
     const [servers, setServers] = useState([]);
 
     useEffect(() => {
-        fetch(BACKEND_BASE_URL + "/Servers/GetAddedServers", {
-            method: "GET",
-            headers: {
-                "Authorization": "Bearer " + USER_TOKEN()
-            }
-        })
+        FETCH_GET(BACKEND_SERVERS_URL, "/Servers/GetAddedServers")
             .then(r => r.json())
             .then(data => setServers(data))
             .catch(error => console.log(error))

@@ -26,3 +26,9 @@ spec:
           value: "localhost:7153"
         - name: REACT_APP_AUTH_API_ADDRESS
           value: "localhost:7154"
+        - name: REACT_APP_SERVERS_API_ADDRESS
+          value: "localhost:7155"
+        - name: REACT_APP_CHANNELS_API_ADDRESS
+          value: "localhost:7156"
+        - name: REACT_APP_MESSAGES_API_ADDRESS
+          value: "localhost:7157"

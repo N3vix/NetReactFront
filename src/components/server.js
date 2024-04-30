@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, Outlet } from 'react-router-dom';
 
-import { FETCH_GET } from '../constants'
+import { BACKEND_CHANNELS_URL,FETCH_GET } from '../constants'
 
 const Server = () => {
     const { serverId } = useParams();
@@ -9,7 +9,7 @@ const Server = () => {
     const [channels, setChannels] = useState([]);
 
     useEffect(() => {
-        FETCH_GET("/Channels/GetChannels" + "?serverId=" + serverId)
+        FETCH_GET(BACKEND_CHANNELS_URL, "/Channels/GetChannels" + "?serverId=" + serverId)
             .then(r => r.json())
             .then(data => setChannels(data))
             .catch(error => console.log(error))
