@@ -10,7 +10,7 @@ const Homepage = () => {
     const [servers, setServers] = useState([]);
 
     useEffect(() => {
-        FETCH_GET(BACKEND_SERVERS_URL, "/Servers/GetAddedServers")
+        FETCH_GET(BACKEND_SERVERS_URL, "/servers/user")
             .then(r => r.json())
             .then(data => setServers(data))
             .catch(error => console.log(error))

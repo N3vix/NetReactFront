@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 
-import { BACKEND_BASE_URL, USER_TOKEN, BACKEND_MESSAGES_URL, FETCH_POST, FETCH_POST_FORM } from '../constants'
+import { BACKEND_MESSAGES_URL, FETCH_GET, FETCH_POST, FETCH_POST_FORM, FETCH_PUT, FETCH_DELETE } from '../constants'
 
 import ChatRoom from './chatroom';
 import { Button } from 'react-bootstrap';
@@ -26,7 +25,7 @@ const TextChannel = ({ conn }) => {
     }, [conn]);
 
     const initMessages = () => {
-        FETCH_POST(BACKEND_MESSAGES_URL, "/Messages/Get", JSON.stringify({ channelId, take: "40" }))
+        FETCH_GET(BACKEND_MESSAGES_URL, `/channel/${channelId}/messages?take=40`)
             .then(r => r.json())
             .then(data => {
                 setMessages(data);
@@ -42,7 +41,7 @@ const TextChannel = ({ conn }) => {
         formData.append("content", content);
         if (image)
             formData.append("image", image);
-        FETCH_POST_FORM(BACKEND_MESSAGES_URL, "/Messages/Add", formData)
+        FETCH_POST_FORM(BACKEND_MESSAGES_URL, "/channel/messages", formData)
             .then(r => r.json())
             .then(data => {
                 conn.invoke("SendMessage", data);
@@ -51,7 +50,7 @@ const TextChannel = ({ conn }) => {
     }
 
     const editMessage = async (messageId, content) => {
-        FETCH_POST(BACKEND_MESSAGES_URL, "/Messages/Update", JSON.stringify({ channelId, messageId, content }))
+        FETCH_PUT(BACKEND_MESSAGES_URL, "/channel/messages", JSON.stringify({ channelId, messageId, content }))
             .then(r => r.text())
             .then(data => {
                 if (/^true$/i.test(data))
@@ -61,7 +60,7 @@ const TextChannel = ({ conn }) => {
     }
 
     const deleteMessage = async (messageId) => {
-        FETCH_POST(BACKEND_MESSAGES_URL, "/Messages/Delete", JSON.stringify({ channelId, messageId }))
+        FETCH_DELETE(BACKEND_MESSAGES_URL, "/channel/messages", JSON.stringify({ channelId, messageId }))
             .then(r => r.text())
             .then(data => {
                 if (/^true$/i.test(data))
@@ -71,7 +70,7 @@ const TextChannel = ({ conn }) => {
     }
 
     const loadPreviousMessages = async () => {
-        FETCH_POST(BACKEND_MESSAGES_URL, "/Messages/GetBefore", JSON.stringify({ channelId, take: "40", DateTime: messages[0].timestamp }))
+        FETCH_GET(BACKEND_MESSAGES_URL, `/channel/${channelId}/messages?take=40&from=${messages[0].timestamp}`)
             .then(r => r.json())
             .then(data => {
                 setMessages(messages => [...data, ...messages])
@@ -80,7 +79,7 @@ const TextChannel = ({ conn }) => {
     }
 
     const loadSpecificMessage = async (messageId) => {
-        FETCH_POST(BACKEND_MESSAGES_URL, "/Messages/GetById", JSON.stringify({ channelId, messageId }))
+        FETCH_GET(BACKEND_MESSAGES_URL, `/channel/${channelId}/messages/${messageId}`)
             .then(r => r.json())
             .then(message => {
                 setMessages(messages => [...messages, message])
@@ -89,7 +88,7 @@ const TextChannel = ({ conn }) => {
     }
 
     const editSpecificMessage = async (messageId) => {
-        FETCH_POST(BACKEND_MESSAGES_URL, "/Messages/GetById", JSON.stringify({ channelId, messageId }))
+        FETCH_GET(BACKEND_MESSAGES_URL, `/channel/${channelId}/messages/${messageId}`)
             .then(r => r.json())
             .then(message => {
                 setMessages(messages => {

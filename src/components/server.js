@@ -9,7 +9,7 @@ const Server = () => {
     const [channels, setChannels] = useState([]);
 
     useEffect(() => {
-        FETCH_GET(BACKEND_CHANNELS_URL, "/Channels/GetChannels" + "?serverId=" + serverId)
+        FETCH_GET(BACKEND_CHANNELS_URL, `/channels/${serverId}/all`)
             .then(r => r.json())
             .then(data => setChannels(data))
             .catch(error => console.log(error))

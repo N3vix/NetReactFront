@@ -39,3 +39,25 @@ export const FETCH_POST_FORM = (url, urlSuffix, body) => {
         body: body
     });
 };
+
+export const FETCH_PUT = (url, urlSuffix, body) => {
+    return fetch(url + urlSuffix, {
+        method: "PUT",
+        headers: {
+            "Authorization": "Bearer " + USER_TOKEN(),
+            'Content-Type': 'application/json'
+        },
+        body: body
+    });
+};
+
+export const FETCH_DELETE = (url, urlSuffix, body) => {
+    return fetch(url + urlSuffix, {
+        method: "DELETE",
+        headers: {
+            "Authorization": "Bearer " + USER_TOKEN(),
+            'Content-Type': 'application/json'
+        },
+        body: body
+    });
+};

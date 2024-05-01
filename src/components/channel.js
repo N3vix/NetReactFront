@@ -12,7 +12,7 @@ const Channel = () => {
     const [isTextChannel, setIsTextChannel] = useState(true)
 
     useEffect(() => {
-        FETCH_GET(BACKEND_CHANNELS_URL, "/Channels/GetChannel" + "?id=" + channelId)
+        FETCH_GET(BACKEND_CHANNELS_URL, `/channels/${channelId}`)
             .then(r => r.json())
             .then(data => setIsTextChannel(data.type === 0))
             .catch(error => console.log(error))
