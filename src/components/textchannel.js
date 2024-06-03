@@ -42,10 +42,10 @@ const TextChannel = ({ conn }) => {
         if (image)
             formData.append("image", image);
         FETCH_POST_FORM(BACKEND_MESSAGES_URL, "/channel/messages", formData)
-            .then(r => r.json())
-            .then(data => {
-                conn.invoke("SendMessage", data);
-            })
+            // .then(r => r.json())
+            // .then(data => {
+            //     conn.invoke("SendMessage", data);
+            // })
             .catch(error => console.log(error))
     }
 
