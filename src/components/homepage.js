@@ -7,12 +7,12 @@ import { BACKEND_SERVERS_URL, FETCH_GET } from '../constants'
 
 const Homepage = () => {
 
-    const [servers, setServers] = useState([]);
+    const [followings, setFollowings] = useState([]);
 
     useEffect(() => {
         FETCH_GET(BACKEND_SERVERS_URL, "/servers/user")
             .then(r => r.json())
-            .then(data => setServers(data))
+            .then(data => setFollowings(data))
             .catch(error => console.log(error))
     }, [])
 
@@ -29,10 +29,17 @@ const Homepage = () => {
                         <Link className="nav-link" to="/">Home</Link>
                     </div>
 
-                    {servers.map((server, index) =>
+                    {followings.map((server, index) =>
                         <div className="nav-item px-3">
                             <Link className="nav-link" key={index} to={server.id}>{server.name}</Link>
                         </div>)}
+
+                    <div className='nav-item px-3'>
+                        <Link className='nav-link' to="create">Add a Server</Link>
+                    </div>
+                    <div className='nav-item px-3'>
+                        <Link className='nav-link' to="discovery">Discover Server</Link>
+                    </div>
 
 
                     <Button variant="success" type="button" onClick={handleLogout}>Log out</Button>
